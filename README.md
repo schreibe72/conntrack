@@ -67,6 +67,13 @@ sudo conntrack -d eth0 -p /tmp/conntrack_data -e
 Sollte sehr viel Traffic als "else" klassifiziert werden, so sollte dieser abgeschalten werden. Jede Verbindung wird ein
 File erzeugen und das kann dazu führen, dass die Inodes auf der Platte ausgehen :boom:.
 
+### Weitere Switches
+
+```
+-O Schaltet die Zusammenfassung der Outgoing Internet Connections aus.
+-I Schaltet die Zusammenfassung der Incoming Internet Connections aus.
+```
+
 ## UDP Connections und deren Richtung
 
 Die Richtung der UDP Connection ist schwer zu erraten. Deshalb werden hier Heuristiken verwendet.
