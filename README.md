@@ -69,8 +69,10 @@ File erzeugen und das kann dazu führen, dass die Inodes auf der Platte ausgehen
 
 ### Weitere Switches
 
-`-O` Schaltet die Zusammenfassung der Outgoing Internet Connections aus.
-`-I` Schaltet die Zusammenfassung der Incoming Internet Connections aus.
+```
+-O Schaltet die Zusammenfassung der Outgoing Internet Connections aus.
+-I Schaltet die Zusammenfassung der Incoming Internet Connections aus.
+```
 
 ## UDP Connections und deren Richtung
 
