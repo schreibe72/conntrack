@@ -25,6 +25,8 @@ type tracker struct {
 	skipelse     bool
 	udpports     []uint16
 	seenudpports []uint16
+	skipInetIn   bool
+	skipInetOut  bool
 }
 
 type udpports []uint16
@@ -41,7 +43,7 @@ func (t *tracker) connection(proto Proto, srcip net.IP, srcport uint16, dstip ne
 	switch {
 	case t.localdevice.isLocalIP(srcip):
 		direction = "out"
-		if isInternet(dstip) {
+		if isInternet(dstip) && !t.skipInetOut {
 			fileParts.dstip = "INTERNET"
 		} else {
 			fileParts.dstip = dstip.String()
@@ -57,7 +59,7 @@ func (t *tracker) connection(proto Proto, srcip net.IP, srcport uint16, dstip ne
 		}
 	case t.localdevice.isLocalIP(dstip):
 		direction = "in"
-		if isInternet(srcip) {
+		if isInternet(srcip) && !t.skipInetIn {
 			fileParts.srcip = "INTERNET"
 		} else {
 			fileParts.srcip = srcip.String()
@@ -108,6 +110,8 @@ func main() {
 	flag.StringVar(&t.device, "d", "eth0", "Network Device")
 	flag.StringVar(&t.path, "p", "", "Path to Store")
 	flag.BoolVar(&t.skipelse, "e", false, "Skip else connection")
+	flag.BoolVar(&t.skipInetIn, "I", false, "Skip summary of incoming internet connection")
+	flag.BoolVar(&t.skipInetOut, "O", false, "Skip summary of outgoing internet connection")
 	flag.Var(&u, "u", "List of udp Ports")
 	flag.Parse()
 	t.udpports = []uint16(u)
